@@ -19,4 +19,12 @@ public class TableSpec {
 		this.columns = (columns == null) ? null : Arrays.copyOf(columns, columns.length);
 		this.primaryKeys = (primaryKeys == null) ? null : Arrays.copyOf(primaryKeys, primaryKeys.length);
 	}
+	
+	public int[] getPrimaryKeys() {
+		return this.primaryKeys;
+	}
+	
+	public ColumnSpec[] getColumns() {
+		return this.columns;
+	}
 }
