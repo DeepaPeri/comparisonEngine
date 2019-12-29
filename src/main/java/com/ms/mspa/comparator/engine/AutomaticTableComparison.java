@@ -12,13 +12,13 @@ public class AutomaticTableComparison implements ITableComparison {
 		ColumnSpec[] rhsColumns = rhsTableSpec.getColumns();
 		int[] rhsKeys = rhsTableSpec.getPrimaryKeys();
 		
-		DKComparatorChain chain = new DKComparatorChain();
+		/*DKComparatorChain chain = new DKComparatorChain();
 		for (int i = 0; i < lhsKeys.length; i++) {
 			Comparator<Comparable[]> comparator = new DKElementComparator<Comparable>(lhsColumns[lhsKey[i]]._index,
 					rhsColumns[rhsKey[i]]._index, DKComparableComparator.getInstance());
 			chain.addComparator(comparator);
-		}
-		return chain;
+		}*/
+		return null;
 	}
 
 	/**
@@ -43,12 +43,12 @@ public class AutomaticTableComparison implements ITableComparison {
 		ColumnSpec[] rhsColumns = rhsTableSpec.getColumns();
 		
 		//now check that the types match
-		for (int i = 0; i < lhsKeys.length; i++) {
+		/*for (int i = 0; i < lhsKeys.length; i++) {
 			if (lhsColumns[lhsKeys[i]].type != rhsColumns[rhsKeys[i]].type)
 				throw new RuntimeException(
 						String.format("lhs key component->%s type->%s must match rhs key component->%s type->%s",
 								lhsColumns[lhsKeys[i]], lhsColumns[lhsKeys[i]].type, rhsColumns[rhsKeys[i]],
 								rhsColumns[rhsKeys[i]].type));
-		}
+		}*/
 	}
 }

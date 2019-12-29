@@ -1,7 +1,5 @@
 package com.ms.mspa.comparator.engine;
 
-import java.util.Comparator;
-
 public class DiffEngine {
 	public DiffContext diff(ISource lhsSource, ISource rhsSource, ISink sink, ITableComparison tableComparison) {
 		DiffContext context = new DiffContext(lhsSource, rhsSource, sink, tableComparison);
@@ -10,11 +8,11 @@ public class DiffEngine {
 	}
 
 	protected void diff(DiffContext context) {
-		context.open();
+		//context.open();
 		int oneSide = -1;
 		
 		Object[][] leftAndRightRows = new Object[2][];
-		Comparator<Object[]> rowComparator = context.tableComparison.getRowComparator();
+		/*Comparator<Object[]> rowComparator = context.tableComparison.getRowComparator();
 		_log.debug("rowComparator->{}", rowComparator);
 		while (true) { // Removed max diffs check.
 			if (_isDebug)
@@ -65,7 +63,7 @@ public class DiffEngine {
 				rows[DKSide.LEFT_INDEX] = null;
 				rows[DKSide.RIGHT_INDEX] = null;
 			}
-		}
-		context_.close();
+		}*/
+		//context_.close();
 	}
 }

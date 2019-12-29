@@ -13,4 +13,10 @@ public class FileSink implements ISink{
 	public void open() throws IOException {
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public void close() throws IOException {
+		// TODO Auto-generated method stub
+		
+	}
 }
