@@ -4,5 +4,5 @@ public interface IPlan {
 	ISource getRHSSource();
 	ISource getLHSSource();
 	ISink getSink();
-	public ITableComparison getTableComparison();
+	public ITableComparator getTableComparator();
 }

@@ -5,12 +5,11 @@ import java.io.IOException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.ms.mspa.comparator.engine.DiffContext;
 import com.ms.mspa.comparator.engine.DiffEngine;
 import com.ms.mspa.comparator.engine.IPlan;
 import com.ms.mspa.comparator.engine.ISink;
 import com.ms.mspa.comparator.engine.ISource;
-import com.ms.mspa.comparator.engine.ITableComparison;
+import com.ms.mspa.comparator.engine.ITableComparator;
 import com.ms.mspa.comparator.engine.MagicPlan;
 
 @SpringBootApplication
@@ -30,21 +29,19 @@ public class ComparatorApplication {
 		System.out.println("Running the magic plan");
 		
 		//Configuration data
-		String lhsFilePath = "a.csv";
-		String rhsFilePath = "b.csv";
-		String sinkFilePath = "sink.txt";
+		String lhsFilePath = "test35.lhs.csv";
+		String rhsFilePath = "test35.rhs.csv";
+		String[] keyColumnNames = {"COLUMN1"};
+		String sinkFile = "test35.sink.diff";
 		///End of configuration
 		
-		IPlan plan = new MagicPlan(lhsFilePath, rhsFilePath, sinkFilePath);
+		IPlan plan = new MagicPlan(lhsFilePath, rhsFilePath, keyColumnNames, sinkFile);
 		ISource lhsSource = plan.getLHSSource();
 		ISource rhsSource = plan.getRHSSource();
 		ISink sink = plan.getSink();
-		ITableComparison tableComparison = plan.getTableComparison();
-		doDiff(lhsSource, rhsSource, sink, tableComparison);
-	}
-	
-	private static DiffContext doDiff(ISource lhsSource, ISource rhsSource, ISink sink, ITableComparison tableComparison) {
+		ITableComparator tableComparator = plan.getTableComparator();
+		
 		DiffEngine diffEngine = new DiffEngine();
-		return diffEngine.diff(lhsSource, rhsSource, sink, tableComparison);
+		diffEngine.diff(lhsSource, rhsSource, sink, tableComparator);
 	}
 }

@@ -9,23 +9,21 @@ import java.util.Comparator;
  * First in the chain is the first element of the composite key.
  * 
  */
-public class KeyComparator implements Comparator<Comparable[]>{
+public class KeyComparator implements Comparator<Object[]>{
 	private boolean isAscending;
 	private KeyComparator nextComparator;
 	private int keyLevel; //In a composite, the index of the key in the order of sorting levels.
+	private Comparator valueComparator;
 	
-	public KeyComparator() {
-		this(0, false);
-	}
-	
-	public KeyComparator(int keyLevel, boolean isAscending) {
+	public KeyComparator(int keyLevel, boolean isAscending, Comparator valueComparator) {
 		this.keyLevel = keyLevel;
 		this.isAscending = isAscending;
+		this.valueComparator = valueComparator;
 	}
 	
 	@Override
-	public int compare(Comparable[] lhs, Comparable[] rhs) {
-		int result = lhs[keyLevel].compareTo(rhs[keyLevel]);
+	public int compare(Object[] lhs, Object[] rhs) {
+		int result = this.valueComparator.compare(lhs[keyLevel], rhs[keyLevel]);
 		if(result != 0) {
 			//Keys did not match. We can break the chain here.
 			return isAscending ? result : result * -1;

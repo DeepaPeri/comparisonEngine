@@ -8,10 +8,10 @@ public class DiffContext {
 	public ISource lhsSource;
 	public ISource rhsSource; 
 	public ISink sink;
-	public ITableComparison tableComparison;
+	public ITableComparator tableComparison;
 	private final StopWatch stopwatch = new StopWatch();
 	
-	public DiffContext(ISource lhsSource, ISource rhsSource, ISink sink, ITableComparison tableComparison) {
+	public DiffContext(ISource lhsSource, ISource rhsSource, ISink sink, ITableComparator tableComparison) {
 		this.lhsSource = lhsSource;
 		this.rhsSource = rhsSource;
 		this.sink = sink;

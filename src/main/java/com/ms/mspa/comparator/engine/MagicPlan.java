@@ -6,13 +6,13 @@ public class MagicPlan implements IPlan{
 	private ISource lhsSource;
 	private ISource rhsSource;
 	private ISink sink;
-	private ITableComparison tableComparison;
+	private ITableComparator tableComparison;
 	
-	public MagicPlan(String lhsFilePath, String rhsFilePath, String sinkFilePath) throws IOException{
-		this.lhsSource = new FileSource(lhsFilePath);
-		this.rhsSource = new FileSource(rhsFilePath);
+	public MagicPlan(String lhsFilePath, String rhsFilePath, String[] keyColumnNames, String sinkFilePath) throws IOException{
+		this.lhsSource = new FileSource(lhsFilePath, keyColumnNames);
+		this.rhsSource = new FileSource(rhsFilePath, keyColumnNames);
 		this.sink = new FileSink(sinkFilePath);
-		this.tableComparison = new AutomaticTableComparison();
+		this.tableComparison = new BasicTableComparator(lhsSource.getTableSpec(), rhsSource.getTableSpec());
 	}
 	
 	@Override
@@ -31,7 +31,7 @@ public class MagicPlan implements IPlan{
 	}
 
 	@Override
-	public ITableComparison getTableComparison() {
+	public ITableComparator getTableComparator() {
 		return this.tableComparison;
 	}
 }

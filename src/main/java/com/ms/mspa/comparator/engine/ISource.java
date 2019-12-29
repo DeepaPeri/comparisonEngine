@@ -1,5 +1,8 @@
 package com.ms.mspa.comparator.engine;
 
-public interface ISource extends ISourceSink {
+import java.io.IOException;
 
+public interface ISource extends ISourceSink {
+	public TableSpec getTableSpec();
+ 	public Object[] getNextRow() throws IOException;
 }

@@ -1,69 +1,85 @@
 package com.ms.mspa.comparator.engine;
 
-public class DiffEngine {
-	public DiffContext diff(ISource lhsSource, ISource rhsSource, ISink sink, ITableComparison tableComparison) {
-		DiffContext context = new DiffContext(lhsSource, rhsSource, sink, tableComparison);
-		this.diff(context);
-		return context;
-	}
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-	protected void diff(DiffContext context) {
-		//context.open();
-		int oneSide = -1;
+public class DiffEngine {
+	public static final int LEFT_INDEX = 0;
+	public static final int RIGHT_INDEX = 1;
+	
+	//Todo: returning void instead of context.
+	public void diff(ISource lhsSource, ISource rhsSource, ISink sink, ITableComparator tableComparator) throws IOException {
+		Map<String, Object> diff = new HashMap<String, Object>();
+		TableSpec lhsTable = lhsSource.getTableSpec();
+		TableSpec rhsTable = rhsSource.getTableSpec();
 		
+		int oneSide = -1;
+		int rowStep = 0;
+		int columnStep = 0;
 		Object[][] leftAndRightRows = new Object[2][];
-		/*Comparator<Object[]> rowComparator = context.tableComparison.getRowComparator();
-		_log.debug("rowComparator->{}", rowComparator);
-		while (true) { // Removed max diffs check.
-			if (_isDebug)
-				_log.debug("diffCount->{}", context_._sink.getDiffCount());
+		
+		while (true) { //Todo: Removed max diffs check.
 			boolean oneSided = false;
-			context_._rowStep++;
-			context_._columnStep = 0;
-			if (context_._rowStep % PROGRESS_BATCH_SIZE == 0)
-				USER_LOG.info("->{}", context_._rowStep);
-			if (rows[DKSide.LEFT_INDEX] == null)
-				rows[DKSide.LEFT_INDEX] = context_._lhs.getNextRow();
-			if (rows[DKSide.LEFT_INDEX] == null) {
+			rowStep++;
+			columnStep = 0;
+			
+			if (leftAndRightRows[LEFT_INDEX] == null)
+				leftAndRightRows[LEFT_INDEX] = lhsSource.getNextRow();
+			
+			if (leftAndRightRows[LEFT_INDEX] == null) {
+				//Rows exhausted in left table.
 				oneSided = true;
-				oneSide = DKSide.RIGHT_INDEX;
+				oneSide = RIGHT_INDEX;
 			}
-			if (rows[DKSide.RIGHT_INDEX] == null)
-				rows[DKSide.RIGHT_INDEX] = context_._rhs.getNextRow();
-			if (rows[DKSide.RIGHT_INDEX] == null) {
+			if (leftAndRightRows[RIGHT_INDEX] == null)
+				leftAndRightRows[RIGHT_INDEX] = rhsSource.getNextRow();
+			if (leftAndRightRows[RIGHT_INDEX] == null) {
+				//Rows exhausted in right table.
 				if (oneSided)
-					break;
+					break; //Rows from both left and right tables are exhausted.
+				
 				oneSided = true;
-				oneSide = DKSide.LEFT_INDEX;
+				oneSide = LEFT_INDEX;
 			}
-			if (_isDebug) {
-				_log.debug("oneSided->{}", oneSided);
-				_log.debug("oneSide->{}", oneSide);
-			}
+			
 			if (oneSided) {
-				this.recordRowDiff(rows[oneSide], oneSide, context_, context_._sink);
-				rows[oneSide] = null;
+				if(oneSide == LEFT_INDEX) {
+					//Todo: Record left exclusive row.
+					System.out.println(lhsTable.getCombinedKeyString(leftAndRightRows[LEFT_INDEX]) + ":: Left only..");
+				}else {
+					//Todo: Record right exclusive row.
+					System.out.println(rhsTable.getCombinedKeyString(leftAndRightRows[RIGHT_INDEX]) + ":: Right only.");
+				}
+				leftAndRightRows[oneSide] = null;
 				continue;
 			}
-			assert ((rows[DKSide.LEFT_INDEX] != null) && (rows[DKSide.RIGHT_INDEX] != null));
-			int comparison = rowComparator.compare(rows[DKSide.LEFT_INDEX], rows[DKSide.RIGHT_INDEX]);
-			// LEFT < RIGHT
+			
+			int comparison = tableComparator.getKeyComparator().compare(leftAndRightRows[0], leftAndRightRows[1]);
 			if (comparison < 0) {
-				this.recordRowDiff(rows[DKSide.LEFT_INDEX], DKSide.LEFT_INDEX, context_, context_._sink);
-				rows[DKSide.LEFT_INDEX] = null;
+				//Left cursor to be advanced. Keys did not match.
+				//TODO: record diff.
+				System.out.println(lhsTable.getCombinedKeyString(leftAndRightRows[LEFT_INDEX]) + ":: Match not found on right.");
+				leftAndRightRows[LEFT_INDEX] = null;
+			}else if (comparison > 0) {
+				//Right cursor to be advanced. Keys did not match.
+				//TODO: record diff.
+				System.out.println(rhsTable.getCombinedKeyString(leftAndRightRows[RIGHT_INDEX]) + ":: Match not found on left.");
+				leftAndRightRows[RIGHT_INDEX] = null;
+			}else {
+				//Keys matched.
+				List<String> differences = tableComparator.getRowComparator().compare(leftAndRightRows[0], leftAndRightRows[1]);
+				//TODO: record diff.
+				if(differences.size() == 0) {
+					//System.out.println(rhsTable.getCombinedKeyString(leftAndRightRows[RIGHT_INDEX]) + ":: Matched");
+				}else {
+					System.out.println(rhsTable.getCombinedKeyString(leftAndRightRows[RIGHT_INDEX]) + ":: Differs in " + String.join(", ", differences));
+				}
+				
+				leftAndRightRows[LEFT_INDEX] = null;
+				leftAndRightRows[RIGHT_INDEX] = null;
 			}
-			// LEFT > RIGHT
-			else if (comparison > 0) {
-				this.recordRowDiff(rows[DKSide.RIGHT_INDEX], DKSide.RIGHT_INDEX, context_, context_._sink);
-				rows[DKSide.RIGHT_INDEX] = null;
-			}
-			// at this point you know the keys are aligned
-			else {
-				this.diffRow(rows[DKSide.LEFT_INDEX], rows[DKSide.RIGHT_INDEX], context_, context_._sink);
-				rows[DKSide.LEFT_INDEX] = null;
-				rows[DKSide.RIGHT_INDEX] = null;
-			}
-		}*/
-		//context_.close();
+		}
 	}
 }
