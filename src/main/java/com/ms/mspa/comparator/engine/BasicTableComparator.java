@@ -44,8 +44,7 @@ public class BasicTableComparator implements ITableComparator {
 			if(rhsColumnSpec == null) {
 				continue;
 			}
-			//TODO: Default comparator is TextDiffor. Use specific diffors depending on the type.
-			ColumnComparator comparator = new ColumnComparator(lhsColumnSpec, rhsColumnSpec, new TextDiffor());
+			ColumnComparator comparator = new ColumnComparator(lhsColumnSpec, rhsColumnSpec, lhsColumnSpec.getDiffor() );
 			comparators.add(comparator);
 		}
 		ColumnComparator[] comparatorArray = new ColumnComparator[comparators.size()];

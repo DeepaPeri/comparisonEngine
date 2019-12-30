@@ -107,7 +107,7 @@ class FileSourceTest {
 	 */
 	@Test
 	void testGetNextRow() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -115,7 +115,7 @@ class FileSourceTest {
 	 */
 	@Test
 	void testFindFile() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 }

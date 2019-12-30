@@ -10,7 +10,8 @@ import java.util.Comparator;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 
-import com.ms.mspa.comparator.engine.comparators.StringComparator;
+import com.ms.mspa.comparator.engine.diffors.IDiffor;
+import com.ms.mspa.comparator.engine.diffors.TextDiffor;
 
 /**
  * @author Deepa We are now assuming all columns are of type String. Todo: Need
@@ -30,17 +31,21 @@ public class ColumnSpec {
 			_isNumber = isNumber_;
 		}
 	}
-
+	
+	public final boolean shouldNormalize;
 	public final int index;
 	public final String name;
 	public final Format format;
 	public final Type type;
+	public final IDiffor diffor;
 	
 	public ColumnSpec(int index, String name) {
 		this.index = index;
 		this.name = name;
 		this.format = null;
 		this.type = Type.STRING; //TODO: Default type is String.
+		this.shouldNormalize = true;//TODO: Make it configurable
+		this.diffor = createDiffor(type);
 	}
 
 	/**
@@ -61,10 +66,17 @@ public class ColumnSpec {
 	}
 	
 	public Comparator getComparator(){
-		if(type == Type.STRING) {
-			return StringComparator.getStringComparator();
-		}
-		
-		return null; //TODO: Add support for other types.
+		return diffor;
 	}
-}
+	
+	public IDiffor getDiffor() {
+		return diffor;
+	}
+	
+	private IDiffor createDiffor(Type type) {
+		if(type == Type.STRING) {
+			return new TextDiffor(shouldNormalize);
+		}
+		return null; // TODO: Support other types
+	}
+}   

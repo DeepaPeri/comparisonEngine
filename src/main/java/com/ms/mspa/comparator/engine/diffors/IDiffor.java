@@ -3,11 +3,13 @@
  */
 package com.ms.mspa.comparator.engine.diffors;
 
+import java.util.Comparator;
+
 /**
  * @author Deepa
  *
  */
-public interface IDiffor {
+public interface IDiffor extends Comparator{
 	/**
 	 * @param lhs a column value from left table
 	 * @param rhs corresponding column value from right table.

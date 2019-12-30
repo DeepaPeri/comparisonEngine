@@ -81,4 +81,12 @@ public class TextDiffor implements IDiffor {
 	public boolean isNormalizationEnabled() {
 		return this.shouldNormalize;
 	}
+
+	@Override
+	public int compare(Object lhs, Object rhs) {
+		String left = (String)lhs;
+		String right = (String)rhs;
+		return left.compareTo(right);
+		
+	}
 }

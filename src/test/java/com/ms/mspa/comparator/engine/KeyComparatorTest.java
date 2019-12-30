@@ -3,7 +3,7 @@ package com.ms.mspa.comparator.engine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import com.ms.mspa.comparator.engine.comparators.StringComparator;
+import com.ms.mspa.comparator.engine.diffors.TextDiffor;
 
 class KeyComparatorTest {
 	class IntegerKey implements Comparable<IntegerKey>{
@@ -27,10 +27,10 @@ class KeyComparatorTest {
 	void testCompare() {
 		boolean keyOrders[] = {true, false};
 		
-		KeyComparator firstComparator = new KeyComparator(0, keyOrders[0], StringComparator.getStringComparator());
+		KeyComparator firstComparator = new KeyComparator(0, keyOrders[0], new TextDiffor());
 		KeyComparator previousComparator = firstComparator;
 		for(int i = 1; i < keyOrders.length; i++) {
-			KeyComparator temp = new KeyComparator(i, keyOrders[i], StringComparator.getStringComparator());
+			KeyComparator temp = new KeyComparator(i, keyOrders[i], new TextDiffor());
 			previousComparator.setNextComparator(temp);
 			previousComparator = temp;
 		}
