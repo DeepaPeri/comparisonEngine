@@ -27,8 +27,8 @@ class NonKeyRowComparatorTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		//Instantiate rowComprator.
-		ColumnSpec lhsColumn = new ColumnSpec(3, "rank");
-		ColumnSpec rhsColumn = new ColumnSpec(3, "rank");
+		ColumnSpec lhsColumn = new ColumnSpec(3, "rank", "STRING");
+		ColumnSpec rhsColumn = new ColumnSpec(3, "rank", "STRING");
 		TextDiffor diffor = new TextDiffor();
 		ColumnComparator columnComparator = new ColumnComparator(lhsColumn, rhsColumn, diffor);
 		ColumnComparator[] columnComparators = new ColumnComparator[1];

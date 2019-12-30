@@ -4,9 +4,7 @@
 package com.ms.mspa.comparator.engine;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import java.io.IOException;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -42,7 +40,8 @@ class FileSourceTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		String[] keyColumns = {"COLUMN1"};
-		fs = new FileSource("test35.rhs.csv", keyColumns);
+		String[] columnTypes = {"STRING","STRING", "STRING", "STRING","STRING", "STRING", "STRING","STRING", "STRING", "STRING","STRING", "STRING", "STRING","STRING", "STRING"};
+		fs = new FileSource("test35.rhs.csv", keyColumns, columnTypes);
 	}
 
 	/**

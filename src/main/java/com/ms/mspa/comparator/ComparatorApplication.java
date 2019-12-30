@@ -32,10 +32,11 @@ public class ComparatorApplication {
 		String lhsFilePath = "test35.lhs.csv";
 		String rhsFilePath = "test35.rhs.csv";
 		String[] keyColumnNames = {"COLUMN1", "COLUMN2", "COLUMN3"};
+		String[] columnTypes = {"STRING","STRING", "STRING", "STRING","STRING", "STRING", "STRING","REAL;0.1", "STRING", "STRING","STRING", "STRING", "STRING","STRING", "STRING"};
 		String sinkFile = "test35.sink.csv";
 		///End of configuration
 		
-		IPlan plan = new MagicPlan(lhsFilePath, rhsFilePath, keyColumnNames, sinkFile);
+		IPlan plan = new MagicPlan(lhsFilePath, rhsFilePath, keyColumnNames, sinkFile, columnTypes);
 		ISource lhsSource = plan.getLHSSource();
 		ISource rhsSource = plan.getRHSSource();
 		ISink sink = plan.getSink();

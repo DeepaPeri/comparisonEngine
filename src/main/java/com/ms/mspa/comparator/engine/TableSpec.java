@@ -60,8 +60,8 @@ public class TableSpec {
 	 * convenience factory method that creates DKTableModel having String type
 	 * columns using columnNames_ and key = key_
 	 */
-	public static TableSpec createGenericStringModel(String[] columnNames, int[] keyColumnIndices) {
-		if ((columnNames == null) || (columnNames.length == 0))
+	public static TableSpec createTableSpec(String[] columnNames, int[] keyColumnIndices, String[] columnTypes) {
+		if ((columnNames == null) || (columnNames.length == 0) || (columnTypes == null))
 			return null;
 		if (keyColumnIndices == null)
 			return null;
@@ -75,7 +75,7 @@ public class TableSpec {
 		
 		ColumnSpec[] columns = new ColumnSpec[columnNames.length];
 		for (int i = 0; i < columnNames.length; i++)
-			columns[i] = new ColumnSpec(i, columnNames[i]);
+			columns[i] = new ColumnSpec(i, columnNames[i], columnTypes[i]);
 
 		return new TableSpec("GENERIC_STRING_TABLE", columns, keyColumnIndices);
 	}

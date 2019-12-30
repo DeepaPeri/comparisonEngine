@@ -24,13 +24,13 @@ public class FileSource implements ISource {
 	
 	private String delimiter;
 	
-	public FileSource(String filePath, String[] keyColumnNames) throws IOException {
+	public FileSource(String filePath, String[] keyColumnNames, String[] columnTypes) throws IOException {
 		this.delimiter = DEFAULT_DELIMITER;
 		this.fileObj = findFile(filePath);
 		this.keyColumnNames = keyColumnNames;
 		this.open();
 		this.keyColumnIndices = this.generateKeyColumnIndices(keyColumnNames);
-		this.tableSpec = TableSpec.createGenericStringModel(columnNames, keyColumnIndices);
+		this.tableSpec = TableSpec.createTableSpec(columnNames, keyColumnIndices, columnTypes);
 	}
 
 	@Override

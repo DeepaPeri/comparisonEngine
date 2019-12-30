@@ -8,9 +8,9 @@ public class MagicPlan implements IPlan{
 	private ISink sink;
 	private ITableComparator tableComparison;
 	
-	public MagicPlan(String lhsFilePath, String rhsFilePath, String[] keyColumnNames, String sinkFilePath) throws Exception{
-		this.lhsSource = new FileSource(lhsFilePath, keyColumnNames);
-		this.rhsSource = new FileSource(rhsFilePath, keyColumnNames);
+	public MagicPlan(String lhsFilePath, String rhsFilePath, String[] keyColumnNames, String sinkFilePath, String[] columnTypes) throws Exception{
+		this.lhsSource = new FileSource(lhsFilePath, keyColumnNames, columnTypes);
+		this.rhsSource = new FileSource(rhsFilePath, keyColumnNames, columnTypes);
 		this.sink = new FileSink(sinkFilePath);
 		this.tableComparison = new BasicTableComparator(lhsSource.getTableSpec(), rhsSource.getTableSpec());
 	}

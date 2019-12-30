@@ -21,6 +21,7 @@ public class TextDiffor implements IDiffor {
 	private static final Pattern SPACE_RUN_PATTERN = Pattern.compile("[ ]+");
 
 	private boolean shouldNormalize;
+	private boolean toleranceCheck;
 	
 	public TextDiffor() {
 		this(false);
@@ -28,6 +29,7 @@ public class TextDiffor implements IDiffor {
 	
 	public TextDiffor(boolean shouldNormalize) {
 		this.shouldNormalize = shouldNormalize;
+		this.toleranceCheck = true;
 	}
 	
 	/**
@@ -36,6 +38,7 @@ public class TextDiffor implements IDiffor {
 	 * 
 	 * Both the parameters must be 'String' instances.
 	 */
+	
 	@Override
 	public boolean isDifferent(Object lhs, Object rhs) {
 		boolean lhsNull = (lhs == null);
@@ -63,6 +66,7 @@ public class TextDiffor implements IDiffor {
 			return true;
 		return !normalizedLhs.equals(normalizedRhs);
 	}
+	
 	
 	/**
 	 * Strings might be same if we do not consider \n, \r, \t into comparison.

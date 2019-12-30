@@ -96,5 +96,4 @@ public class DiffEngine {
 		}
 		sink.writeData(diff);
 	}
-	
 }
