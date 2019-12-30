@@ -15,7 +15,7 @@ import com.ms.mspa.comparator.engine.MagicPlan;
 @SpringBootApplication
 public class ComparatorApplication {
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws Exception{
 		SpringApplication.run(ComparatorApplication.class, args);
 		try {
 			runMagicPlan();
@@ -25,14 +25,14 @@ public class ComparatorApplication {
 		
 	}
 	
-	private static void runMagicPlan() throws IOException{
+	private static void runMagicPlan() throws Exception{
 		System.out.println("Running the magic plan");
 		
 		//Configuration data
 		String lhsFilePath = "test35.lhs.csv";
 		String rhsFilePath = "test35.rhs.csv";
-		String[] keyColumnNames = {"COLUMN1"};
-		String sinkFile = "test35.sink.diff";
+		String[] keyColumnNames = {"COLUMN1", "COLUMN2", "COLUMN3"};
+		String sinkFile = "test35.sink.csv";
 		///End of configuration
 		
 		IPlan plan = new MagicPlan(lhsFilePath, rhsFilePath, keyColumnNames, sinkFile);

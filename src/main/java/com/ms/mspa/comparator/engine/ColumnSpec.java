@@ -31,20 +31,20 @@ public class ColumnSpec {
 			_isNumber = isNumber_;
 		}
 	}
-	
+
 	public final boolean shouldNormalize;
 	public final int index;
 	public final String name;
 	public final Format format;
 	public final Type type;
 	public final IDiffor diffor;
-	
+
 	public ColumnSpec(int index, String name) {
 		this.index = index;
 		this.name = name;
 		this.format = null;
-		this.type = Type.STRING; //TODO: Default type is String.
-		this.shouldNormalize = true;//TODO: Make it configurable
+		this.type = Type.STRING; // TODO: Default type is String.
+		this.shouldNormalize = true;// TODO: Make it configurable
 		this.diffor = createDiffor(type);
 	}
 
@@ -64,19 +64,19 @@ public class ColumnSpec {
 	public boolean isColumnPartofKey(int[] keyIndices) {
 		return ArrayUtils.indexOf(keyIndices, index) >= 0;
 	}
-	
-	public Comparator getComparator(){
+
+	public Comparator getComparator() {
 		return diffor;
 	}
-	
+
 	public IDiffor getDiffor() {
 		return diffor;
 	}
-	
+
 	private IDiffor createDiffor(Type type) {
-		if(type == Type.STRING) {
+		if (type == Type.STRING) {
 			return new TextDiffor(shouldNormalize);
 		}
 		return null; // TODO: Support other types
 	}
-}   
+}

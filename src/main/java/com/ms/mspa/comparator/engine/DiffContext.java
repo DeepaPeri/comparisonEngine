@@ -1,7 +1,6 @@
 package com.ms.mspa.comparator.engine;
 
 import java.io.IOException;
-
 import org.apache.commons.lang.time.StopWatch;
 
 public class DiffContext {

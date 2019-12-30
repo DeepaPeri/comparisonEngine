@@ -159,4 +159,9 @@ public class FileSource implements ISource {
 	public TableSpec getTableSpec() {
 		return tableSpec;
 	}
+
+	@Override
+	public Kind getKind() {
+		return null;
+	}
 }

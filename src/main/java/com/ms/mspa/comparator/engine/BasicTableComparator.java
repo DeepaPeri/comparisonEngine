@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.ms.mspa.comparator.engine.diffors.TextDiffor;
-
 public class BasicTableComparator implements ITableComparator {
 	private KeyComparator keyComparator;
 	private NonKeyRowComparator rowComparator;
