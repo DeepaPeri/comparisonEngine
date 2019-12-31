@@ -1,17 +1,17 @@
 package com.ms.mspa.comparator.engine;
 
 import java.io.BufferedWriter;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 
-public class FileSink implements ISink{
+public class FileSink extends DiffWriter implements ISink{
 	private final File sinkFile;
 	//private DiffWriter diffWriter;
-	private Writer writer;
+	private FileWriter writer;
 	public FileSink(String sinkFilePath) throws Exception{
 		this(new File(sinkFilePath), false, null);
 	}
@@ -21,11 +21,12 @@ public class FileSink implements ISink{
 			file.delete();
 		}
 		this.sinkFile = file;
+		this.writer = new FileWriter(sinkFile);
 	}
 	
 	@Override
 	public void open() throws IOException{
-		this.writer = new BufferedWriter(new FileWriter(sinkFile));
+		this.init(new BufferedWriter(new FileWriter(sinkFile)));
 	}
 	
 	@Override
@@ -52,4 +53,5 @@ public class FileSink implements ISink{
 		}
 	    writer.close();
 	}
+
 }
