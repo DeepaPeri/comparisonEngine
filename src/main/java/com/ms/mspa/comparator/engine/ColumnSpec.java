@@ -4,13 +4,13 @@
 package com.ms.mspa.comparator.engine;
 
 import java.text.DecimalFormat;
-
 import java.text.Format;
 import java.text.ParseException;
 import java.util.Comparator;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+
 import com.ms.mspa.comparator.engine.diffors.IDiffor;
 import com.ms.mspa.comparator.engine.diffors.TextDiffor;
 
